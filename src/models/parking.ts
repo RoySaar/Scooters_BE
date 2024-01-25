@@ -1,17 +1,25 @@
 import mongoose, {Document} from "mongoose";
+import {Coordinates} from "./types";
 
-export interface IParking extends Document {
+export interface Parking extends Document {
     address: string;
     maxScooters: number;
-    location: Location;
+    location: Coordinates;
+    currentScooters?: number;
 }
 
 const parkingSchema = new mongoose.Schema({
     address: String,
     maxScooters: String,
-    location: Location,
+    location: {
+        type: {
+            latitude: Number,
+            longitude: Number,
+        },
+        required: true,
+    },
 });
 
-const Parking = mongoose.model<IParking>('Parking', parkingSchema);
+const ParkingModel = mongoose.model<Parking>('Parking', parkingSchema);
 
-export default Parking;
+export default ParkingModel;

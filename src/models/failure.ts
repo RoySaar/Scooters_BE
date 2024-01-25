@@ -1,22 +1,23 @@
 import mongoose, {Document} from "mongoose";
 
 export enum FailureType {
-    RoutineCare,
-    BrakeReplacement,
-    WheelReplacement,
+    RoutineCare = 'routineCare',
+    BrakeReplacement = 'brakeReplacement',
+    WheelReplacement = 'wheelReplacement',
 }
 
 export enum FailureStatus {
-    Open,
-    Care,
-    Closed,
+    Open = 'open',
+    Care = 'care',
+    Closed = 'closed',
 }
 
-export interface IFailure extends Document {
+export interface Failure extends Document {
     type: FailureType;
     status: FailureStatus;
     openingTime: number;
     closingTime: number;
+    scooterId: string;
 }
 
 const failureSchema = new mongoose.Schema({
@@ -24,8 +25,9 @@ const failureSchema = new mongoose.Schema({
     status: String,
     openingTime: Number,
     closingTime: Number,
+    scooterId: String,
 });
 
-const Failure = mongoose.model<IFailure>('Failure', failureSchema);
+const FailureModel = mongoose.model<Failure>('Failure', failureSchema);
 
-export default Failure;
+export default FailureModel;

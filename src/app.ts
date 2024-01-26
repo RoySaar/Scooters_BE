@@ -15,13 +15,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 const SECRET = process.env.MY_SECRET_KEY || '';
+const MONGO_URL = process.env.MONGO_PRIVATE_URL || '';
 
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 app.use(session({ secret: SECRET, resave: false, saveUninitialized: false }));
 
-mongoose.connect('mongodb://localhost:27017/mydatabase');
+mongoose.connect(MONGO_URL);
 
 app.use(express.json());
 app.use('/user', userRoutes);
